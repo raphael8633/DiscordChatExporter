@@ -34,11 +34,30 @@ public abstract class DiscordCommandBase : ICommand
     )]
     public bool ShouldRespectRateLimits { get; set; } = true;
 
+    [CommandOption(
+        "request-delay-min",
+        EnvironmentVariable = "DCE_JITTER_MS_MIN",
+        Description = "Minimum random delay (in milliseconds) before each request sent to Discord, including retries. "
+            + "Applies to both user and bot tokens."
+    )]
+    public int RequestDelayMin { get; set; } = 0;
+
+    [CommandOption(
+        "request-delay-max",
+        EnvironmentVariable = "DCE_JITTER_MS_MAX",
+        Description = "Maximum random delay (in milliseconds) before each request sent to Discord. "
+            + "Defaults to the minimum delay if not set."
+    )]
+    public int? RequestDelayMax { get; set; }
+
     [field: AllowNull, MaybeNull]
     protected DiscordClient Discord =>
         field ??= new DiscordClient(
             Token,
-            ShouldRespectRateLimits ? RateLimitPreference.RespectAll : RateLimitPreference.IgnoreAll
+            ShouldRespectRateLimits
+                ? RateLimitPreference.RespectAll
+                : RateLimitPreference.IgnoreAll,
+            RequestDelay.Create(RequestDelayMin, RequestDelayMax)
         );
 
     public virtual ValueTask ExecuteAsync(IConsole console)
