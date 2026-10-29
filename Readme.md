@@ -10,6 +10,9 @@
 [![Discord](https://img.shields.io/discord/869237470565392384?label=discord)](https://discord.gg/2SUWKFnHSm)
 [![Fuck Russia](https://img.shields.io/badge/fuck-russia-e4181c.svg?labelColor=000000)](https://twitter.com/tyrrrz/status/1495972128977571848)
 
+> [!NOTE]
+> This is a fork that adds a few CLI options for lighter JSON exports. See [FORK.md](FORK.md) for what changed and how the branches are organized.
+
 <table>
     <tr>
         <td width="99999" align="center">Development of this project is entirely funded by the community. <b><a href="https://tyrrrz.me/donate">Consider donating to support!</a></b></td>
