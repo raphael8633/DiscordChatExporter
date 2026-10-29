@@ -20,7 +20,8 @@ namespace DiscordChatExporter.Core.Discord;
 
 public class DiscordClient(
     string token,
-    RateLimitPreference rateLimitPreference = RateLimitPreference.RespectAll
+    RateLimitPreference rateLimitPreference = RateLimitPreference.RespectAll,
+    RequestDelay requestDelay = default
 )
 {
     private readonly Uri _baseUri = new("https://discord.com/api/v10/", UriKind.Absolute);
@@ -42,6 +43,12 @@ public class DiscordClient(
                     "Authorization",
                     tokenKind == TokenKind.Bot ? $"Bot {token}" : token
                 );
+
+                // Optional user-configured delay to throttle requests below the rate limit.
+                // Applied to every attempt, including retries.
+                var throttleDelay = requestDelay.GetNextDelay(Random.Shared);
+                if (throttleDelay > TimeSpan.Zero)
+                    await Task.Delay(throttleDelay, innerCancellationToken);
 
                 var response = await Http.Client.SendAsync(
                     request,

@@ -300,3 +300,18 @@ To list all servers accessible by the current account, use the `guilds` command:
 ```console
 ./DiscordChatExporter.Cli guilds -t "mfa.Ifrn" > C:\path\to\output.txt
 ```
+
+### Throttling requests
+
+DCE respects Discord's rate limits by default. If you want to send requests at an even slower pace, use `--request-delay-min` and `--request-delay-max` to wait a random number of milliseconds before every request sent to Discord, including retries:
+
+```console
+./DiscordChatExporter.Cli export -t "mfa.Ifrn" -c 53555 --request-delay-min 400 --request-delay-max 1800
+```
+
+- Each delay is picked uniformly at random between the minimum and the maximum (both inclusive).
+- If only the minimum is set, every request is delayed by exactly that amount.
+- A negative minimum is treated as `0`, and a maximum lower than the minimum is raised to the minimum.
+- If both are `0` (the default), no delay is added.
+
+The delay applies to all commands that talk to Discord and to both user and bot tokens. The options can also be set through the `DCE_JITTER_MS_MIN` and `DCE_JITTER_MS_MAX` environment variables.
