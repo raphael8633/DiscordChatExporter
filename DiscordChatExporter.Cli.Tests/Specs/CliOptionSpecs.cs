@@ -30,6 +30,7 @@ public class CliOptionSpecs
     [Theory]
     [InlineData("--request-delay-min", "DCE_JITTER_MS_MIN")]
     [InlineData("--request-delay-max", "DCE_JITTER_MS_MAX")]
+    [InlineData("--member-snapshot", "DCE_MEMBER_SNAPSHOT")]
     public async Task I_can_see_the_environment_variable_bound_to_an_option_in_the_help_text(
         string optionName,
         string environmentVariableName

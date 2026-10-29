@@ -49,6 +49,8 @@ public partial class ExportRequest
 
     public bool ShouldSkipReactionDetails { get; }
 
+    public string? MemberSnapshotPath { get; }
+
     public ExportRequest(
         Guild guild,
         Channel channel,
@@ -65,7 +67,8 @@ public partial class ExportRequest
         bool shouldReuseAssets,
         string? locale,
         bool isUtcNormalizationEnabled,
-        bool shouldSkipReactionDetails = false
+        bool shouldSkipReactionDetails = false,
+        string? memberSnapshotPath = null
     )
     {
         Guild = guild;
@@ -82,6 +85,7 @@ public partial class ExportRequest
         Locale = locale;
         IsUtcNormalizationEnabled = isUtcNormalizationEnabled;
         ShouldSkipReactionDetails = shouldSkipReactionDetails;
+        MemberSnapshotPath = memberSnapshotPath;
 
         OutputFilePath = GetOutputBaseFilePath(Guild, Channel, outputPath, Format, After, Before);
 
