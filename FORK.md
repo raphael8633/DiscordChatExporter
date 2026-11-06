@@ -20,9 +20,9 @@ All options are CLI-only (the GUI is unchanged) and default to upstream behavior
 
 | Option | Environment variable | What it does |
 |---|---|---|
-| `--skip-reaction-details` | – | JSON export keeps reaction emojis and counts but leaves `users` empty, skipping one request per emoji per message. Same name and behavior as upstream PR [#1599](https://github.com/Tyrrrz/DiscordChatExporter/pull/1599); dropped here if that is merged. |
+| `--skip-reaction-details` | – | JSON export keeps reaction emojis and counts but leaves `users` empty, skipping one request per emoji per message. Upstream PR [#1599](https://github.com/Tyrrrz/DiscordChatExporter/pull/1599) adds the same behavior (review asks for an inverted `--include-reaction-details` option); this module is dropped once that ships in a release. |
 | `--request-delay-min`, `--request-delay-max` | `DCE_JITTER_MS_MIN`, `DCE_JITTER_MS_MAX` | Random delay (ms) before every request, including retries. |
-| `--member-snapshot` | `DCE_MEMBER_SNAPSHOT` | Reads guild members (nickname, roles) from a JSONL file captured earlier instead of requesting each author individually (see [#749](https://github.com/Tyrrrz/DiscordChatExporter/issues/749)). Entries older than 30 days are ignored; authors resolved this way get a `memberSnapshotAt` field in JSON output. |
+| `--member-snapshot` | `DCE_MEMBER_SNAPSHOT` | Reads guild members (nickname, roles) from a JSONL file captured earlier instead of requesting each author individually (see [#749](https://github.com/Tyrrrz/DiscordChatExporter/issues/749)). Entries older than 30 days are ignored; authors resolved this way get a `memberSnapshotAt` field in JSON output. Declined upstream as out of scope ([#1600](https://github.com/Tyrrrz/DiscordChatExporter/pull/1600)), so it stays fork-only. |
 
 ## Tests
 
